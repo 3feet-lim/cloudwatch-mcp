@@ -18,8 +18,8 @@ from awslabs.cloudwatch_mcp_server.cloudwatch_alarms.tools import CloudWatchAlar
 from awslabs.cloudwatch_mcp_server.cloudwatch_logs.tools import CloudWatchLogsTools
 from awslabs.cloudwatch_mcp_server.cloudwatch_metrics.tools import CloudWatchMetricsTools
 from awslabs.cloudwatch_mcp_server.config import HOST, PORT, TRANSPORT
+from fastmcp import FastMCP
 from loguru import logger
-from mcp.server.fastmcp import FastMCP
 
 
 mcp = FastMCP(

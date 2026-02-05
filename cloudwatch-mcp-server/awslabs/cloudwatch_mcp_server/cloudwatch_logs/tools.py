@@ -498,6 +498,28 @@ class CloudWatchLogsTools:
     async def execute_log_insights_query(
         self,
         ctx: Context,
+        start_time: Annotated[
+            str,
+            Field(
+                description=(
+                    'ISO 8601 formatted start time for the CloudWatch Logs Insights query window (e.g., "2025-04-19T20:00:00+00:00").'
+                ),
+            ),
+        ],
+        end_time: Annotated[
+            str,
+            Field(
+                description=(
+                    'ISO 8601 formatted end time for the CloudWatch Logs Insights query window (e.g., "2025-04-19T21:00:00+00:00").'
+                ),
+            ),
+        ],
+        query_string: Annotated[
+            str,
+            Field(
+                description='The query string in the Cloudwatch Log Insights Query Language. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html.',
+            ),
+        ],
         log_group_names: Annotated[
             List[str] | None,
             Field(
@@ -512,22 +534,6 @@ class CloudWatchLogsTools:
                 description="The list of up to 50 logGroupIdentifiers to query. You can specify them by the log group name or ARN. If a log group that you're querying is in a source account and you're using a monitoring account, you must use the ARN. CRITICAL: Exactly one of [log_group_names, log_group_identifiers] should be non-null.",
             ),
         ] = None,
-        start_time: str = Field(
-            ...,
-            description=(
-                'ISO 8601 formatted start time for the CloudWatch Logs Insights query window (e.g., "2025-04-19T20:00:00+00:00").'
-            ),
-        ),
-        end_time: str = Field(
-            ...,
-            description=(
-                'ISO 8601 formatted end time for the CloudWatch Logs Insights query window (e.g., "2025-04-19T21:00:00+00:00").'
-            ),
-        ),
-        query_string: str = Field(
-            ...,
-            description='The query string in the Cloudwatch Log Insights Query Language. See https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html.',
-        ),
         limit: Annotated[
             int | None,
             Field(
