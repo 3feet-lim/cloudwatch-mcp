@@ -18,14 +18,6 @@ import os
 from typing import Literal, cast
 
 
-TRUTHY_VALUES = frozenset(['true', 'yes', '1'])
-
-
-def get_env_bool(env_key: str, default: bool) -> bool:
-    """환경변수에서 boolean 값을 가져옵니다."""
-    return os.getenv(env_key, str(default)).casefold() in TRUTHY_VALUES
-
-
 def get_transport_from_env() -> Literal['stdio', 'streamable-http']:
     """환경변수에서 transport 값을 가져옵니다. 기본값은 stdio입니다."""
     transport = os.getenv('CLOUDWATCH_MCP_TRANSPORT', 'stdio')
@@ -41,7 +33,3 @@ TRANSPORT = get_transport_from_env()
 # HTTP 서버 설정 (streamable-http 사용 시)
 HOST = os.getenv('CLOUDWATCH_MCP_HOST', '0.0.0.0')
 PORT = int(os.getenv('CLOUDWATCH_MCP_PORT', '8000'))
-STATELESS_HTTP = get_env_bool('CLOUDWATCH_MCP_STATELESS_HTTP', False)
-
-# 로그 레벨 설정
-LOG_LEVEL = os.getenv('CLOUDWATCH_MCP_LOG_LEVEL', 'INFO')

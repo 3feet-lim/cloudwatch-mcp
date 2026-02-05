@@ -17,9 +17,9 @@
 from awslabs.cloudwatch_mcp_server.cloudwatch_alarms.tools import CloudWatchAlarmsTools
 from awslabs.cloudwatch_mcp_server.cloudwatch_logs.tools import CloudWatchLogsTools
 from awslabs.cloudwatch_mcp_server.cloudwatch_metrics.tools import CloudWatchMetricsTools
-from awslabs.cloudwatch_mcp_server.config import HOST, PORT, STATELESS_HTTP, TRANSPORT
-from fastmcp import FastMCP
+from awslabs.cloudwatch_mcp_server.config import HOST, PORT, TRANSPORT
 from loguru import logger
+from mcp.server.fastmcp import FastMCP
 
 
 mcp = FastMCP(
@@ -48,13 +48,12 @@ def main():
     logger.info(f'Starting CloudWatch MCP server with transport: {TRANSPORT}')
 
     if TRANSPORT == 'stdio':
-        mcp.run(transport=TRANSPORT)
+        mcp.run()
     else:  # streamable-http
         mcp.run(
             transport=TRANSPORT,
             host=HOST,
             port=PORT,
-            stateless_http=STATELESS_HTTP,
         )
 
     logger.info('CloudWatch MCP server started')
